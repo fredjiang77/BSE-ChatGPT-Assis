@@ -1,6 +1,6 @@
 # ChatGPT AI Assist
 The project that I am making is a Ras-pi ChatGPT Assistant. This uses the Raspberry Pi computer and using it to create a voice-enabled ChatGPT interface that allowed me to speak to it and generate spoken responses. 
-You should comment out all portions of your portfolio that you have not completed yet, as well as any instructions:
+
 ```HTML 
 <!--- This is an HTML comment in Markdown -->
 <!--- Anything between these symbols will not render on the published site -->
