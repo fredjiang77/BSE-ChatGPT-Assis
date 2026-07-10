@@ -46,11 +46,7 @@ For your second milestone, explain what you've worked on since your previous mil
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/RjnOawhe9nk?si=F7XG3wbCmmwDfKaE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-For your first milestone, describe what your project is and how you plan to build it. You can include:
-- An explanation about the different components of your project and how they will all integrate together
-- Technical progress you've made so far
-- Challenges you're facing and solving in your future milestones
-- What your plan is to complete your project
+For my first milestone, I intend on finishing my hardware and raspberry pi setup. I plan to build a AI assistant in which I could talk to it and get responses back. I will have a raspberry pi as the big computer, a usb mic to recieve audio, a usb speaker to emmit audio, and a breadboard and switch to turn the assistant into listening mode. I finished setting all of this up as well as most of the software needed for the assistant to work. Some challenges that i faced along the way was that the SSH didn't work for a long time and I am still dealing with some issues with the mic and it is not picking up any audio on startup. My plan is to fix those issues I am am pretty much done with my base project.
 
 # Schematics 
 Here's where you'll put images of your schematics. [Tinkercad](https://www.tinkercad.com/blog/official-guide-to-tinkercad-circuits) and [Fritzing](https://fritzing.org/learning/) are both great resoruces to create professional schematic diagrams, though BSE recommends Tinkercad becuase it can be done easily and for free in the browser. 
