@@ -1,11 +1,6 @@
 # ChatGPT AI Assist
 The project that I am making is a Ras-pi ChatGPT Assistant. This uses the Raspberry Pi computer and using it to create a voice-enabled ChatGPT interface that allowed me to speak to it and generate spoken responses. 
 
-```HTML 
-<!--- This is an HTML comment in Markdown -->
-<!--- Anything between these symbols will not render on the published site -->
-```
-
 | **Name** | **School** | **Area of Interest** | **Grade** |
 |:--:|:--:|:--:|:--:|
 | Frederick J | Appleby College | Electrical Engineering | Incoming Senior
@@ -77,6 +72,8 @@ Don't forget to place the link of where to buy each component inside the quotati
 | USB Mic | Capture voice commands | $7.56 | <a href="https://www.amazon.com/dp/B01MQ2AA0X?ref=fed_asin_title"> Link </a> |
 | Speaker | Emmit Audio | $13.99 | <a href="https://www.amazon.com/Mobile-Speaker-Compact-Adhesive-Installation/dp/B0D95ZYCW6/"> Link </a> |
 | Screwdriver Set | Screw Screws | $5.94 | <a href="https://www.amazon.com/Small-Screwdriver-Set-Mini-Magnetic/dp/B08RYXKJW9/"> Link </a> |
+| Screen | Monitor  | $48.95 | <a href="https://www.amazon.ca/Freenove-Touchscreen-Raspberry-Capacitive-Driver-Free/dp/B0B455LDKH/ref=sr_1_2_sspa?crid=OQBCOAOP88TL&dib=eyJ2IjoiMSJ9.1ZP-x4GHf2bcWw7fBBlvjsT46rIXAvkE0H331aIl8FAkbJRCKhd-pnI2ZwOvSuPL4RtzPlki5UYA2eBSsEo6HbXBlhEborLKIdEWTiPTTLzerCnh0nYP0_TbflmFj_9G0oJsPQLkCe6PS5d78qHZLwLDx-QDT_gnI7qF3nRlsQi_Vm8kU9NkXcM5BbxOUGaKpLOmknhEjMpyXurIq_l_lwxLLQ98JvOVTneIahAxS_o2jWDGE4F0YbOcVTdbTTgtt-ohDw8otjMbSnlluE57aqdHoldDx12L3zrxyLXk3lE.nrTatiTA204s0YHM-0JkqKNkzsKVabb3qkPt71vNq-k&dib_tag=se&keywords=raspi%2Btouch%2Bscreen&qid=1783696509&sprefix=raspi%2Bscreen%2B%2Caps%2C107&sr=8-2-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&th=1"> Link </a> |
+
 
 # Other Resources/Examples
 One of the best parts about Github is that you can view how other people set up their own work. Here are some past BSE portfolios that are awesome examples. You can view how they set up their portfolio, and you can view their index.md files to understand how they implemented different portfolio components.
