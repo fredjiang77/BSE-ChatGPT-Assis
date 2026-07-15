@@ -27,7 +27,7 @@ For your final milestone, explain the outcome of your project. Key details to in
 
 **Don't forget to replace the text below with the embedding for your milestone video. Go to Youtube, click Share -> Embed, and copy and paste the code to replace what's below.**
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/RjnOawhe9nk?si=F7XG3wbCmmwDfKaE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/F_AnLWEBznc?si=xzdXgBXDbtgiaMOO" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 For your second milestone, explain what you've worked on since your previous milestone. You can highlight:
 - Technical details of what you've accomplished and how they contribute to the final goal
@@ -39,7 +39,7 @@ For your second milestone, explain what you've worked on since your previous mil
 
 **Don't forget to replace the text below with the embedding for your milestone video. Go to Youtube, click Share -> Embed, and copy and paste the code to replace what's below.**
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/F_AnLWEBznc?si=xzdXgBXDbtgiaMOO" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/RjnOawhe9nk?si=F7XG3wbCmmwDfkaE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 For my first milestone, I intend on finishing my hardware and raspberry pi setup. I plan to build a AI assistant in which I could talk to it and get responses back. I will have a raspberry pi as the big computer, a usb mic to recieve audio, a usb speaker to emmit audio, and a breadboard and switch to turn the assistant into listening mode. I finished setting all of this up as well as most of the software needed for the assistant to work. In the video, I demonstrated that my ai assistant could listen to me and replay what I have said. Some challenges that i faced along the way was that the SSH didn't work for a long time. I couldn't get the raspi to connect with the external device for a long time, and had to reflash more than ten times. I am still dealing with some issues with the mic and it is not picking up any audio on startup. My plan is to fix those issues I am am pretty much done with my base project.
 
