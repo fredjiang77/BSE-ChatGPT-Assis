@@ -11,8 +11,6 @@ The project that I am making is a Ras-pi ChatGPT Assistant. This uses the Raspbe
   
 # Final Milestone
 
-**Don't forget to replace the text below with the embedding for your milestone video. Go to Youtube, click Share -> Embed, and copy and paste the code to replace what's below.**
-
 <iframe width="560" height="315" src="https://www.youtube.com/embed/F_AnLWEBznc?si=xzdXgBXDbtgiaMOO" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 For your final milestone, explain the outcome of your project. Key details to include are:
@@ -28,8 +26,6 @@ At BSE, some of the biggest challenges and triumphs are trying to figure out all
 In summary, I learned how to connect a raspberry pi, install packages, and how to make my project work. I learned the process behind the AI assistant and how the information is transferred in the software. In the future, I wish to keep working on my project and learn more things that I can add on to what I have. 
 
 # First Milestone
-
-**Don't forget to replace the text below with the embedding for your milestone video. Go to Youtube, click Share -> Embed, and copy and paste the code to replace what's below.**
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/RjnOawhe9nk?si=F7XG3wbCmmwDfkaE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
