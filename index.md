@@ -13,12 +13,6 @@ The project that I am making is a Ras-pi ChatGPT Assistant. This uses the Raspbe
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/F_AnLWEBznc?si=xzdXgBXDbtgiaMOO" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-For your final milestone, explain the outcome of your project. Key details to include are:
-- What you've accomplished since your previous milestone
-- What your biggest challenges and triumphs were at BSE
-- A summary of key topics you learned about
-- What you hope to learn in the future after everything you've learned at BSE
-
 Since my previous milestone, I was able to get my project to fully work. I can now talk to the AI assistant and it could give me a response in a few seconds. Some other things that I added on to it is a monitor, a bluetooth speaker, and mobile power. The monitor allows me to edit and eventually display the AI assistant without connecting an external device. The bluetooth speaker gives me way better audio that the cheap usb speakers and is dramatically louder. Lastly, the mobile power bank makes my assistant portable, meaning that I don't have to always connect a power source to the raspberry pi. Something that has been surprising about the project so far is how much the assistant and the pi can do. It actually becomes so helpful when you are trying to get info fast, and repurposing it in the future could even maybe let it access visual elements and even more. From the previous milestone, I overcame the ssh issues and the mic issues. Now the ChatGPT AI Assistant could actually hear me now and process the audio before sending responses back to me. 
 
 At BSE, some of the biggest challenges and triumphs are trying to figure out all of the bbugs in the code and debugging them. It has been really difficult to search up the error codes and trying to fix them. However, with the help of my instructor and searching stuff up, I was able to figure these things out.
