@@ -41,17 +41,233 @@ Here's where you'll put images of your schematics. [Tinkercad](https://www.tinke
 # Code
 Here's where you'll put your code. The syntax below places it into a block of code. Follow the guide [here]([url](https://www.markdownguide.org/extended-syntax/)) to learn how to customize it to your project needs. 
 
-```c++
-void setup() {
-  // put your setup code here, to run once:
-  Serial.begin(9600);
-  Serial.println("Hello World!");
-}
+```python
+# SPDX-FileCopyrightText: 2023 Melissa LeBlanc-Williams for Adafruit Industries
+#
+# SPDX-License-Identifier: MIT
 
-void loop() {
-  // put your main code here, to run repeatedly:
+import threading
+import os
+import sys
 
-}
+from datetime import datetime, timedelta
+from queue import Queue
+import time
+import random
+from tempfile import NamedTemporaryFile
+
+import azure.cognitiveservices.speech as speechsdk
+import speech_recognition as sr
+import openai
+
+import board
+import digitalio
+
+# ChatGPT Parameters
+SYSTEM_ROLE = (
+    "You are a helpful voice assistant in the form of a sweet kindergarten teacher"
+    " that answers questions and gives information"
+)
+CHATGPT_MODEL = "gpt-3.5-turbo"
+WHISPER_MODEL = "whisper-1"
+
+# Azure Parameter
+AZURE_SPEECH_VOICE = "en-GB-HollieNeural"
+DEVICE_ID = None
+
+# Speech Recognition Parameters
+ENERGY_THRESHOLD = 1000  # Energy level for mic to detect
+PHRASE_TIMEOUT = 3.0  # Space between recordings for sepating phrases
+RECORD_TIMEOUT = 0
+
+# Import keys from environment variables
+openai.api_key = os.environ.get("OPENAI_API_KEY")
+speech_key = os.environ.get("SPEECH_KEY")
+service_region = os.environ.get("SPEECH_REGION")
+
+if openai.api_key is None or speech_key is None or service_region is None:
+    print(
+        "Please set the OPENAI_API_KEY, SPEECH_KEY, and SPEECH_REGION environment variables first."
+    )
+    sys.exit(1)
+
+speech_config = speechsdk.SpeechConfig(subscription=speech_key, region=service_region)
+speech_config.speech_synthesis_voice_name = AZURE_SPEECH_VOICE
+
+
+def sendchat(prompt):
+    completion = openai.ChatCompletion.create(
+        model=CHATGPT_MODEL,
+        messages=[
+            {"role": "system", "content": SYSTEM_ROLE},
+            {"role": "user", "content": prompt},
+        ],
+    )
+    # Send the heard text to ChatGPT and return the result
+    return completion.choices[0].message.content
+
+
+def transcribe(wav_data):
+    # Read the transcription.
+    print("Transcribing...")
+    attempts = 0
+    while attempts < 3:
+        try:
+            with NamedTemporaryFile(suffix=".wav") as temp_file:
+                result = openai.Audio.translate_raw(
+                    WHISPER_MODEL, wav_data, temp_file.name
+                )
+                return result["text"].strip()
+        except (openai.error.ServiceUnavailableError, openai.error.APIError):
+            time.sleep(3)
+        attempts += 1
+    return "I wasn't able to understand you. Please repeat that."
+
+class Listener:
+    def __init__(self):
+        self.listener_handle = None
+        self.recognizer = sr.Recognizer()
+        self.recognizer.energy_threshold = ENERGY_THRESHOLD
+        self.recognizer.dynamic_energy_threshold = False
+        self.recognizer.pause_threshold = 1
+        self.last_sample = bytes()
+        self.phrase_time = datetime.utcnow()
+        self.phrase_timeout = PHRASE_TIMEOUT
+        self.phrase_complete = False
+        # Thread safe Queue for passing data from the threaded recording callback.
+        self.data_queue = Queue()
+        self.mic_dev_index = None
+
+    def listen(self):
+        if not self.listener_handle:
+            with sr.Microphone(device_index = 1) as source:
+                print(source.stream)
+                self.recognizer.adjust_for_ambient_noise(source)
+                audio = self.recognizer.listen(source, timeout=RECORD_TIMEOUT)
+            data = audio.get_raw_data()
+            self.data_queue.put(data)
+
+    def record_callback(self, _, audio: sr.AudioData) -> None:
+        # Grab the raw bytes and push it into the thread safe queue.
+        data = audio.get_raw_data()
+        self.data_queue.put(data)
+
+    def speech_waiting(self):
+        return not self.data_queue.empty()
+
+    def get_speech(self):
+        if self.speech_waiting():
+            return self.data_queue.get()
+        return None
+
+    def get_audio_data(self):
+        now = datetime.utcnow()
+        if self.speech_waiting():
+            self.phrase_complete = False
+            if self.phrase_time and now - self.phrase_time > timedelta(
+                seconds=self.phrase_timeout
+            ):
+                self.last_sample = bytes()
+                self.phrase_complete = True
+            self.phrase_time = now
+
+            # Concatenate our current audio data with the latest audio data.
+            while self.speech_waiting():
+                data = self.get_speech()
+                self.last_sample += data
+
+            # Use AudioData to convert the raw data to wav data.
+            with sr.Microphone() as source:
+                audio_data = sr.AudioData(
+                    self.last_sample, source.SAMPLE_RATE, source.SAMPLE_WIDTH
+                )
+            return audio_data
+
+        return None
+
+class Chat:
+    def __init__(self, azure_speech_config):
+
+        #Setup Button
+        self._button = digitalio.DigitalInOut(board.D16)
+        self._button.direction = digitalio.Direction.INPUT
+        self._button.pull = digitalio.Pull.UP
+        audio_config = speechsdk.audio.AudioOutputConfig(use_default_speaker=True)
+        self._speech_synthesizer = speechsdk.SpeechSynthesizer(
+        speech_config=azure_speech_config, audio_config=audio_config
+       )
+        if DEVICE_ID is None:
+            audio_config = speechsdk.audio.AudioOutputConfig(use_default_speaker=True)
+        else:
+            audio_config = speechsdk.audio.AudioOutputConfig(device_name=DEVICE_ID)
+        self._speech_synthesizer = speechsdk.SpeechSynthesizer(
+            speech_config=azure_speech_config, audio_config=audio_config
+        )
+
+    def deinit(self):
+        self._speech_synthesizer.synthesis_started.disconnect_all()
+        self._speech_synthesizer.synthesis_completed.disconnect_all()
+
+    def button_pressed(self):
+        return not self._button.value
+
+    def speak(self, text):
+        result = self._speech_synthesizer.speak_text_async(text).get()
+
+        # Check result
+        if result.reason == speechsdk.ResultReason.SynthesizingAudioCompleted:
+            print("Speech synthesized for text [{}]".format(text))
+        elif result.reason == speechsdk.ResultReason.Canceled:
+            cancellation_details = result.cancellation_details
+            print("Speech synthesis canceled: {}".format(cancellation_details.reason))
+            if cancellation_details.reason == speechsdk.CancellationReason.Error:
+                print("Error details: {}".format(cancellation_details.error_details))
+
+
+def main():
+    listener = Listener()
+    chat = Chat(speech_config)
+    transcription = [""]
+    chat.speak(
+        "Hello! My name is Lilly and I'm you personal assistant. You can ask me anything. Just press the red button whenever you would like to talk to me"
+    )
+    while True:
+        try:
+            # If button is pressed, start listening
+            if chat.button_pressed():
+                chat.speak("How may I help you?")
+                listener.listen()
+
+            # Pull raw recorded audio from the queue.
+            if listener.speech_waiting():
+                audio_data = listener.get_audio_data()
+                chat.speak("let me think about that")
+                text = transcribe(audio_data.get_wav_data())
+
+                if text:
+                    if listener.phrase_complete:
+                        transcription.append(text)
+                        print(f"Phrase Complete. Sent '{text}' to ChatGPT.")
+                        chat_response = sendchat(text)
+                        transcription.append(f"> {chat_response}")
+                        print("Got response from ChatGPT. Beginning speech synthesis.")
+                        chat.speak(chat_response)
+                    else:
+                        print("Partial Phrase...")
+                        transcription[-1] = text
+
+                os.system("clear")
+                for line in transcription:
+                    print(line)
+                print("", end="", flush=True)
+                time.sleep(0.25)
+        except KeyboardInterrupt:
+            break
+    chat.deinit()
+
+if __name__ == "__main__":
+    main()
+
 ```
 
 # Bill of Materials
