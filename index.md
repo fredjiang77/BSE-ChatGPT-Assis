@@ -5,7 +5,7 @@ The project that I am making is a Ras-pi ChatGPT Assistant. This uses the Raspbe
 |:--:|:--:|:--:|:--:|
 | Frederick J | Appleby College | Electrical Engineering | Incoming Sophomore
 
-![Headstone Image](logo.svg)
+![Headstone Image](Super.jpeg)
   
 # Final Milestone
 
